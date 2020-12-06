@@ -16,8 +16,13 @@ app.use(cors());
 const bodyParser = require("body-parser");
 
 // Mount your existing apiRouter below at the '/api' path.
+app.use(express.static("public"));
+app.get("/", (req, res, next) => {
+  res.send();
+});
+
 const apiRouter = require("./server/api");
-app.use("/", apiRouter);
+app.use("/api", apiRouter);
 
 // This conditional is here for testing purposes:
 if (!module.parent) {
