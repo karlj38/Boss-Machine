@@ -1,9 +1,20 @@
+const db = require("./db");
 const express = require("express");
 const meetingsRouter = express.Router();
 
 meetingsRouter.get("/", (req, res, next) => {
-  console.log("/meetings");
-  res.send("works");
+  const allMeetings = db.getAllFromDatabase("meetings");
+  res.send(allMeetings);
+});
+
+meetingsRouter.post("/", (req, res, next) => {
+  const meeting = db.createMeeting();
+  res.send(meeting);
+});
+
+meetingsRouter.delete("/", (req, res, next) => {
+  db.deleteAllFromDatabase("meetings");
+  res.sendStatus(200);
 });
 
 module.exports = meetingsRouter;

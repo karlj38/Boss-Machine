@@ -1,9 +1,10 @@
+const db = require("./db");
 const express = require("express");
 const minionsRouter = express.Router();
 
 minionsRouter.get("/", (req, res, next) => {
-  console.log(".../minions");
-  res.send("works");
+  const allMinions = db.getAllFromDatabase("minions");
+  res.send(allMinions);
 });
 
 module.exports = minionsRouter;
