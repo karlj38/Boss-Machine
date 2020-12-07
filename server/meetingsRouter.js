@@ -9,12 +9,13 @@ meetingsRouter.get("/", (req, res, next) => {
 
 meetingsRouter.post("/", (req, res, next) => {
   const meeting = db.createMeeting();
-  res.send(meeting);
+  db.addToDatabase("meetings", meeting);
+  res.status(201).send(meeting);
 });
 
 meetingsRouter.delete("/", (req, res, next) => {
   db.deleteAllFromDatabase("meetings");
-  res.sendStatus(200);
+  res.sendStatus(204);
 });
 
 module.exports = meetingsRouter;
