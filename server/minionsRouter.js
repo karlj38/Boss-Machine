@@ -1,6 +1,7 @@
 const db = require("./db");
 const express = require("express");
 const minionsRouter = express.Router();
+const workRouter = require("./workRouter");
 
 const verifyId = (req, res, next) => {
   const minion = db.getFromDatabaseById("minions", req.params.id);
@@ -11,6 +12,11 @@ const verifyId = (req, res, next) => {
     res.sendStatus(404);
   }
 };
+
+// workRouter.param("id", (req, res, next, id) => {
+//   req.id = Number(id);
+//   next();
+// });
 
 minionsRouter.get("/", (req, res, next) => {
   const allMinions = db.getAllFromDatabase("minions");
@@ -59,5 +65,7 @@ minionsRouter.delete("/:id", verifyId, (req, res, next) => {
     res.sendStatus(500);
   }
 });
+
+minionsRouter.use("/", workRouter);
 
 module.exports = minionsRouter;
